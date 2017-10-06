@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>mtb_970x250</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- write your code here -->
+<script src="js/comp.js"></script>
+<script src="js/TimelineLite.min.js"></script>
+<script src="mtb_970x250.js"></script>
+<script>
+var canvas, stage, exportRoot;
+function init() {
+	// --- write your JS code here ---
+	
+	canvas = document.getElementById("canvas");
+	images = images||{};
+
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", handleFileLoad);
+	loader.addEventListener("complete", handleComplete);
+	loader.loadManifest(lib.properties.manifest);
+}
+
+function handleFileLoad(evt) {
+	if (evt.item.type == "image") { images[evt.item.id] = evt.result; }
+}
+
+function handleComplete(evt) {
+	exportRoot = new lib.mtb_970x250();
+
+	stage = new createjs.Stage(canvas);
+	stage.addChild(exportRoot);
+	stage.update();
+	stage.enableMouseOver();
+
+	createjs.Ticker.setFPS(lib.properties.fps);
+	createjs.Ticker.addEventListener("tick", stage);
+}
+
+</script>
+
+<!-- write your code here -->
+
+</head>
+<body onload="init();" style="background-color:#FFFFFF;margin:0px;">
+  <a href="%reference%@%user1%" target="_blank">
+	<div style="height: 250px; position: relative; overflow: hidden;"><canvas id="canvas" width="2000" height="250" style="background-color: #FFFFFF;
+position: absolute; top: 0; left: 50%; margin-left: -1000px;"></canvas></div></a>
+</body>
+</html>
